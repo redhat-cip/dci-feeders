@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger the DCI %i Feeder
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=6h
+Unit=dci-feeder@%i.service
+
+[Install]
+WantedBy=timers.target
