@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-709948e7163d224ae88886327e84b8b021b6e922	dci-feeders-ptl
+# UUID          Group Name
+False 	Non-Interactive Users
+db57b8a6ba6bcf30c873d2e2206901668a73fbfb       	dci-feeders-core
+709948e7163d224ae88886327e84b8b021b6e922        	dci-feeders-ptl
+global:Registered-Users		Registered Users
