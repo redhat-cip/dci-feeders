@@ -75,7 +75,7 @@ def get_puddle_component(repo_file, topic_id):
 def get_components(urls, topic_id):
     c = []
     for url in urls:
-        c += [get_puddle_component(url, topic_id)]
+        c.append(get_puddle_component(url, topic_id))
     return c
 
 
