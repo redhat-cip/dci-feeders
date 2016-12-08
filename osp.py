@@ -147,6 +147,14 @@ def refresh_puddles(ctx):
                 'http://download.eng.bos.redhat.com/rel-eng/OpenStack/8.0-RHEL-7-director/latest/RH7-RHOS-8.0-director.repo'],  # noqa
             'topic_id': dci_topic.get(ctx, 'OSP8').json()['topic']['id'],
             'export_control': True
+        },
+        {
+            'name': '7.0',
+            'urls': [
+                'http://download.eng.bos.redhat.com/rel-eng/OpenStack/7.0-RHEL-7/latest/RH7-RHOS-7.0.repo',  # noqa
+                'http://download.eng.bos.redhat.com/rel-eng/OpenStack/7.0-RHEL-7-director/latest/RH7-RHOS-7.0-director.repo'],  # noqa
+            'topic_id': dci_topic.get(ctx, 'OSP7').json()['topic']['id'],
+            'export_control': True
         }
     ]
 
