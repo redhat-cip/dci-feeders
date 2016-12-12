@@ -22,7 +22,7 @@ cp -v systemd/* ${HOME}/rpmbuild/SOURCES/
 sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
-for arch in fedora-23-x86_64 fedora-24-x86_64 epel-7-x86_64; do
+for arch in fedora-25-x86_64 epel-7-x86_64; do
     rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
 
     mkdir -p ${HOME}/.mock
