@@ -154,7 +154,7 @@ def refresh_puddles(ctx):
         components = get_components(v['urls'], v['topic_id'])
         for c in components:
             dci_component.create(ctx, **c)
-            r = dci_component.get(ctx, c['name'], embed='file')
+            r = dci_component.get(ctx, c['name'], embed='files')
             if r.status_code == 401:
                 continue
             if r.status_code == 404:
