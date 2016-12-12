@@ -125,12 +125,18 @@ def build_jobdefinition_name(v, components):
 def refresh_puddles(ctx):
     versions = [
         {
+            'name': '11.0',
+            'urls': [
+                'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/11.0-RHEL-7/latest/RH7-RHOS-11.0.repo',  # noqa
+             ],
+            'topic_id': dci_topic.get(ctx, 'OSP11').json()['topic']['id'],
+        },
+        {
             'name': '10.0',
             'urls': [
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/10.0-RHEL-7/latest/RH7-RHOS-10.0.repo',  # noqa
              ],
             'topic_id': dci_topic.get(ctx, 'OSP10').json()['topic']['id'],
-            'export_control': True
         },
         {
             'name': '9.0',
@@ -138,7 +144,6 @@ def refresh_puddles(ctx):
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/9.0-RHEL-7/latest/RH7-RHOS-9.0.repo',  # noqa
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/9.0-RHEL-7-director/latest/RH7-RHOS-9.0-director.repo'],  # noqa
             'topic_id': dci_topic.get(ctx, 'OSP9').json()['topic']['id'],
-            'export_control': True
         },
         {
             'name': '8.0',
@@ -146,7 +151,6 @@ def refresh_puddles(ctx):
                 'http://download.eng.bos.redhat.com/rel-eng/OpenStack/8.0-RHEL-7/latest/RH7-RHOS-8.0.repo',  # noqa
                 'http://download.eng.bos.redhat.com/rel-eng/OpenStack/8.0-RHEL-7-director/latest/RH7-RHOS-8.0-director.repo'],  # noqa
             'topic_id': dci_topic.get(ctx, 'OSP8').json()['topic']['id'],
-            'export_control': True
         }
     ]
 
