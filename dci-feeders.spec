@@ -37,6 +37,8 @@ Set of feeders for the DCI Control Server
 install -p -D -m 755 osp.py %{buildroot}/%{_datadir}/%{name}/osp.py
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/dci-feeder@.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/dci-feeder@.timer
+rm -f %{_datadir}/%{name}/*.pyc
+rm -f %{_datadir}/%{name}/*.pyo
 
 %post
 %systemd_post dci-feeder-osp.service
