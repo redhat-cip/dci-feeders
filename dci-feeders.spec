@@ -35,22 +35,24 @@ Set of feeders for the DCI Control Server
 
 %install
 install -p -D -m 755 osp.py %{buildroot}/%{_datadir}/%{name}/osp.py
+install -p -D -m 755 rdo.py %{buildroot}/%{_datadir}/%{name}/rdo.py
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/dci-feeder@.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/dci-feeder@.timer
 
 %post
-%systemd_post dci-feeder-osp.service
+%systemd_post dci-feeder@.service
 
 %preun
-%systemd_preun dci-feeder-osp.service
+%systemd_preun dci-feeder@.service
 
 %postun
-%systemd_postun_with_restart %{name}.service
+%systemd_postun_with_restart dci-feeder@.service
 
 %files
 %doc README.rst
 %license LICENSE
 %{_datadir}/%{name}/osp.py
+%{_datadir}/%{name}/rdo.py
 %{_unitdir}
 
 
