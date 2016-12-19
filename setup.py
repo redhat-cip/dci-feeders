@@ -53,6 +53,7 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'dci-feeder-osp = osp:main'
+            'dci-feeder-rdo = rdo:main'
         ],
     }
 )
