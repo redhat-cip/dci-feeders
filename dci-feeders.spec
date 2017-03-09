@@ -5,8 +5,6 @@ Summary:        DCI Feeders
 License:        ASL 2.0
 URL:            https://github.com/redhat-cip/dcifeeder
 Source0:        dci-feeders-%{version}.tar.gz
-Source1:        dci-feeder@.service
-Source2:        dci-feeder@.timer
 
 BuildArch:      noarch
 
@@ -35,8 +33,8 @@ Set of feeders for the DCI Control Server
 
 %install
 install -p -D -m 755 osp.py %{buildroot}/%{_datadir}/%{name}/osp.py
-install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/dci-feeder@.service
-install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/dci-feeder@.timer
+install -p -D -m 644 systemd/dci-feeder@.service %{buildroot}%{_unitdir}/dci-feeder@.service
+install -p -D -m 644 systemd/dci-feeder@.timer %{buildroot}%{_unitdir}/dci-feeder@.timer
 
 %post
 %systemd_post dci-feeder-osp.service
@@ -51,6 +49,8 @@ install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/dci-feeder@.timer
 %doc README.rst
 %license LICENSE
 %{_datadir}/%{name}/osp.py
+%{_datadir}/%{name}/osp.pyc
+%{_datadir}/%{name}/osp.pyo
 %{_unitdir}
 
 
