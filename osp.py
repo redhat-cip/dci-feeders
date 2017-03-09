@@ -122,6 +122,11 @@ def build_jobdefinition_name(v, components):
     return 'OSP %s - %s' % (v.split('.')[0], '+'.join(tmp))
 
 
+def topic_id_by_name(ctx, name):
+    r = dci_topic.list(ctx, where='name:' + name)
+    return r.json()['topics'][0]['id']
+
+
 def refresh_puddles(ctx):
     versions = [
         {
@@ -129,28 +134,28 @@ def refresh_puddles(ctx):
             'urls': [
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/11.0-RHEL-7/latest/RH7-RHOS-11.0.repo',  # noqa
              ],
-            'topic_id': dci_topic.get(ctx, 'OSP11').json()['topic']['id'],
+            'topic_id': topic_id_by_name(ctx, 'OSP11'),
         },
         {
             'name': '10.0',
             'urls': [
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/10.0-RHEL-7/latest/RH7-RHOS-10.0.repo',  # noqa
              ],
-            'topic_id': dci_topic.get(ctx, 'OSP10').json()['topic']['id'],
+            'topic_id': topic_id_by_name(ctx, 'OSP10'),
         },
         {
             'name': '9.0',
             'urls': [
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/9.0-RHEL-7/latest/RH7-RHOS-9.0.repo',  # noqa
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/9.0-RHEL-7-director/latest/RH7-RHOS-9.0-director.repo'],  # noqa
-            'topic_id': dci_topic.get(ctx, 'OSP9').json()['topic']['id'],
+            'topic_id': topic_id_by_name(ctx, 'OSP9'),
         },
         {
             'name': '8.0',
             'urls': [
                 'http://download.eng.bos.redhat.com/rel-eng/OpenStack/8.0-RHEL-7/latest/RH7-RHOS-8.0.repo',  # noqa
                 'http://download.eng.bos.redhat.com/rel-eng/OpenStack/8.0-RHEL-7-director/latest/RH7-RHOS-8.0-director.repo'],  # noqa
-            'topic_id': dci_topic.get(ctx, 'OSP8').json()['topic']['id'],
+            'topic_id': topic_id_by_name(ctx, 'OSP8'),
         }
     ]
 
@@ -158,13 +163,17 @@ def refresh_puddles(ctx):
         components = get_components(v['urls'], v['topic_id'])
         for c in components:
             dci_component.create(ctx, **c)
-            r = dci_component.get(ctx, c['name'], embed='files')
-            if r.status_code == 401:
-                continue
-            if r.status_code == 404:
+            r = dci_topic.list_components(
+                ctx,
+                v['topic_id'],
+                where='name:' + c['name'],
+                limit=1,
+                embed='files')
+            components = r.json()['components']
+            if len(components) == 0:
                 print('Component %s not found' % c['name'])
                 exit(1)
-            component = r.json()['component']
+            component = r.json()['components'][0]
             r_current_components = dci_component.file_list(
                 ctx, id=component['id'])
             if len(r_current_components.json()['component_files']):
