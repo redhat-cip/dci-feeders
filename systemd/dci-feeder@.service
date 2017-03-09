@@ -4,7 +4,7 @@ Description=DCI %i Feeder
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/sysconfig/dci-feeder-%i
-ExecStart=/usr/bin/python /usr/share/dci-feeders/%i.py --dci-login $DCI_LOGIN --dci-password $DCI_PASSWORD --dci-cs-url $DCI_CS_URL
+ExecStart=/usr/bin/python /usr/share/dci-feeders/%i.py
 SuccessExitStatus=0
 
 [Install]
