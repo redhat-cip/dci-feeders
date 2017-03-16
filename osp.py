@@ -166,8 +166,7 @@ def refresh_puddles(ctx):
             r = dci_topic.list_components(
                 ctx,
                 v['topic_id'],
-                where='name:' + c['name'],
-                embed='files')
+                where='name:' + c['name'])
             components = r.json()['components']
             if len(components) == 0:
                 print('Component %s not found' % c['name'])
