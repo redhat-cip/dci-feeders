@@ -196,11 +196,11 @@ def refresh_puddles(ctx):
 
 
 @click.command()
-@click.option('--dci-login', envvar='DCI_LOGIN', required=True,
+@click.option('--dci-login', envvar='DCI_LOGIN', required=False,
               help="DCI username account.")
-@click.option('--dci-password', envvar='DCI_PASSWORD', required=True,
+@click.option('--dci-password', envvar='DCI_PASSWORD', required=False,
               help="DCI password account.")
-@click.option('--dci-cs-url', envvar='DCI_CS_URL', required=True,
+@click.option('--dci-cs-url', envvar='DCI_CS_URL', required=False,
               help="DCI CS url.")
 def main(dci_login, dci_password, dci_cs_url):
     ctx = dci_context.build_dci_context(dci_cs_url, dci_login,
