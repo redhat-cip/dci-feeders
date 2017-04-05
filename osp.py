@@ -130,6 +130,13 @@ def topic_id_by_name(ctx, name):
 def refresh_puddles(ctx):
     versions = [
         {
+            'name': '12.0',
+            'urls': [
+                'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/12.0-RHEL-7/latest/RH7-RHOS-12.0.repo',  # noqa
+             ],
+            'topic_id': topic_id_by_name(ctx, 'OSP12'),
+        },
+        {
             'name': '11.0',
             'urls': [
                 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/11.0-RHEL-7/latest/RH7-RHOS-11.0.repo',  # noqa
