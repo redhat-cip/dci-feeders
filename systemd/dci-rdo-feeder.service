@@ -1,0 +1,8 @@
+[Unit]
+Description=Start update on demand
+JobTimeoutSec=5min
+
+[Service]
+User=centos
+EnvironmentFile=/home/centos/dcirc_production_chain.sh
+ExecStart=/usr/bin/python /home/centos/feeders/systemd/systemd-launcher.py

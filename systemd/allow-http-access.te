@@ -1,0 +1,11 @@
+module allow-http-access 1.0;
+
+require {
+  type init_t;
+  type systemd_networkd_t;
+  class netlink_route_socket { create setopt bind };
+}
+
+allow init_t systemd_networkd_t:netlink_route_socket create;
+allow init_t systemd_networkd_t:netlink_route_socket setopt;
+allow init_t systemd_networkd_t:netlink_route_socket bind;

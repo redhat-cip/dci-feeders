@@ -1,0 +1,70 @@
+---
+- name: Retrieve component informations
+  dci_format_puddle_component:
+    url: '{{ component_to_upload.url }}'
+    type: '{{ component_to_upload.type }}'
+    name: '{{ component_to_upload.name }}'
+  register: component
+
+
+- name: Create topic (if necessary)
+  dci_topic:
+    name: '{{ component_to_upload.topic }}'
+  register: topic
+
+
+- name: Create component (if necessary)
+  dci_component:
+    name: '{{ component.name }}'
+    type: '{{ component_to_upload.type }}'
+    canonical_project_name: '{{ component.canonical_project_name }}'
+    url: '{{ component.url }}'
+    data: '{{ component.data }}'
+    topic_id: '{{ topic.topic.id }}'
+  register: create
+
+
+- block:
+
+  - name: Create repo file needed for reposync
+    yum_repository:
+      reposdir: .
+      name: '{{ component.canonical_project_name }}'
+      description: '{{ component.canonical_project_name }}'
+      baseurl: '{{ component.url }}'
+      gpgcheck: yes
+
+
+  - name: Sync the content of the repository
+    command: >
+      reposync -c {{ component.canonical_project_name }}.repo
+      --download-metadata --norepopath -r {{ component.canonical_project_name }}
+      -p {{ component.canonical_project_name }}
+
+
+  - name: Run the createrepo command on the local folder
+    shell: createrepo {{ component.canonical_project_name }}
+
+
+  - name: Create a tarball with the recently synced data + repodata files
+    command: >
+      tar -czvf {{ component.canonical_project_name }}.tar
+      {{ component.canonical_project_name }}
+
+
+  - name: Upload the component to the DCI control-server
+    dci_component:
+      id: '{{ create.component.id }}'
+      path: '{{ component.canonical_project_name }}.tar'
+
+
+  - name: Clean up
+    file:
+      state: absent
+      path: '{{ item }}'
+    with_items:
+      - '{{ component.canonical_project_name }}.tar'
+      - '{{ component.canonical_project_name }}.repo'
+      - '{{ component.canonical_project_name }}'
+
+  when: create.changed
