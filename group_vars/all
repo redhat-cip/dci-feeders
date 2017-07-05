@@ -1,4 +1,6 @@
 ---
+# RDO
+#
 components:
   - name: RDO-Pike
     topic: RDO-Pike
@@ -14,3 +16,17 @@ components:
     topic: RDO-Newton
     type: snapshot_rdo
     url: http://trunk.rdoproject.org/centos7-newton/current-passed-ci/delorean.repo
+
+# Ansible
+#
+# product: ansible
+# components:
+#  - name: Ansible-2.3
+#    topic: Ansible-2.3
+#    type: snapshot_ansible
+#    url: https://api.github.com/repos/ansible/ansible/branches/stable-2.3
+
+#  - name: Ansible-2.4
+#    topic: Ansible-2.4
+#    type: snapshot_ansible
+#    url: https://api.github.com/repos/ansible/ansible/branches/devel
