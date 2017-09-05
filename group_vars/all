@@ -2,12 +2,19 @@
 # RDO
 #
 components:
+  - name: RDO-Queens
+    topic: RDO-Queens
+    type: snapshot_rdo
+    component_types:
+      - snapshot_rdo
+    url: http://trunk.rdoproject.org/centos7-master/current-passed-ci/delorean.repo
+
   - name: RDO-Pike
     topic: RDO-Pike
     type: snapshot_rdo
     component_types:
       - snapshot_rdo
-    url: http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo
+    url: http://trunk.rdoproject.org/centos7-pike/current-passed-ci/delorean.repo
 
   - name: RDO-Ocata
     topic: RDO-Ocata
